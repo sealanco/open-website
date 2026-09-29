@@ -4,7 +4,7 @@
 title = MIT OpenCourseWare
 
 # (str) Package name
-package.name = mit-ocw
+package.name = mitocw
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.example
