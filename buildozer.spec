@@ -1,10 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = My Kivy Application
+title = MIT OpenCourseWare
 
 # (str) Package name
-package.name = myapp
+package.name = mit-ocw
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.example
@@ -14,6 +14,9 @@ source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas
+
+# (str) Icon of the application
+icon.filename = %(source.dir)s/30664.png
 
 # (str) Application versioning
 version = 0.1
