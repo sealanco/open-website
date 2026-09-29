@@ -1,19 +1,15 @@
 import webbrowser
 from kivy.app import App
-from kivy.uix.button import Button
+from kivy.uix.label import Label
 
 class MainApp(App):
     def build(self):
-        btn = Button(
-            text="Visit MIT OpenCourseWare",
-            size_hint=(0.4, 0.2),
-            pos_hint={'center_x': 0.5, 'center_y': 0.5}
-        )
-        btn.bind(on_press=self.open_url)
-        return btn
-
-    def open_url(self, instance):
+        # Open the webpage automatically when the app builds
         webbrowser.open("https://ocw.mit.edu/")
+        
+        # Kivy requires build() to return a widget
+        return Label(text="Opening MIT OpenCourseWare...")
+
 if __name__ == "__main__":
     MainApp().run()
     
