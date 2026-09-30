@@ -13,6 +13,7 @@ class MainApp(App):
             WebViewClient = autoclass('android.webkit.WebViewClient')
             LinearLayout = autoclass('android.widget.LinearLayout')
             LayoutParams = autoclass('android.widget.LinearLayout$LayoutParams')
+            Color = autoclass('android.graphics.Color')
             activity = autoclass('org.kivy.android.PythonActivity').mActivity
 
             @run_on_ui_thread
@@ -20,6 +21,7 @@ class MainApp(App):
                 # 1. Create a root container layout
                 layout = LinearLayout(activity)
                 layout.setOrientation(LinearLayout.VERTICAL)
+                layout.setBackgroundColor(Color.BLACK)
 
                 # 2. Get status bar height dynamically in pixels
                 resource_id = activity.getResources().getIdentifier("status_bar_height", "dimen", "android")
