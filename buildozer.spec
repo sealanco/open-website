@@ -16,7 +16,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/30664.png
+icon.filename = %(source.dir)s/images.png
 
 # (str) Application versioning
 version = 0.1
