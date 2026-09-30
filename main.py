@@ -1,29 +1,32 @@
-import threading
-import time
-import webbrowser
 from kivy.app import App
-from kivy.clock import Clock
-from kivy.uix.widget import Widget
+from kivy.utils import platform
+from kivy.uix.label import Label
+import webbrowser
 
 class MainApp(App):
     def build(self):
-        # Schedule the browser thread to start after the UI mounts
-        Clock.schedule_once(self.launch_browser_and_exit, 1.0)
-        return Widget()
+        if platform == "android":
+            from android.runnable import run_on_ui_thread
+            from jnius import autoclass
 
-    def launch_browser_and_exit(self, dt):
-        # Run browser launch in a separate thread so it doesn't block Kivy
-        threading.Thread(target=self._worker, daemon=True).start()
+            WebView = autoclass('android.webkit.WebView')
+            WebViewClient = autoclass('android.webkit.WebViewClient')
+            activity = autoclass('org.kivy.android.PythonActivity').mActivity
 
-    def _worker(self):
-        # Open the webpage
-        webbrowser.open("https://ocw.mit.edu/")
-        
-        # Give the operating system time to dispatch the URL to the browser
-        time.sleep(1.5)
-        
-        # Gracefully shut down Kivy on the main thread
-        Clock.schedule_once(lambda dt: App.get_running_app().stop(), 0)
+            @run_on_ui_thread
+            def create_webview():
+                webview = WebView(activity)
+                webview.getSettings().setJavaScriptEnabled(True)
+                webview.setWebViewClient(WebViewClient())
+                webview.loadUrl("https://ocw.mit.edu/")
+                activity.setContentView(webview)
+
+            create_webview()
+            return Label(text="Loading WebView...")
+        else:
+            # Fallback for desktop during development
+            webbrowser.open("https://ocw.mit.edu/")
+            return Label(text="Opened in external browser (Desktop mode)")
 
 if __name__ == "__main__":
     MainApp().run()
