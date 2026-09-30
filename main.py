@@ -1,17 +1,17 @@
 import webbrowser
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.uix.widget import Widget
 
 class MainApp(App):
     def build(self):
-        # Open the webpage automatically when the app builds
-        webbrowser.open("https://ocw.mit.edu/")
-        
-        # Stop the application immediately
-        App.get_running_app().stop()
-        
-        # Kivy requires build() to return a widget
+        # Schedule the web open and exit process after the app initializes
+        Clock.schedule_once(self.open_and_close, 0.5)
         return Widget()
+
+    def open_and_close(self, dt):
+        webbrowser.open("https://ocw.mit.edu/")
+        self.stop()
 
 if __name__ == "__main__":
     MainApp().run()
